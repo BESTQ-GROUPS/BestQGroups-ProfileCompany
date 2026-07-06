@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export async function generateStaticParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+  ];
+}
+
 export default function DetailProduk() {
   const relatedProducts = Array(3).fill({
     title: "Peralatan Medis Premium",
