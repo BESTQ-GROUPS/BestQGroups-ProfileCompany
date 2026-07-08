@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useState, useEffect, FormEvent } from "react";
-
 import { BsInstagram } from "react-icons/bs";
-import { FaPhoneAlt, FaFacebookSquare, FaYoutube } from "react-icons/fa";
-import { BiLogoGmail } from "react-icons/bi";
+import { FaWhatsapp } from "react-icons/fa";
+import { PiTiktokLogo, PiYoutubeLogo } from "react-icons/pi";
+import { TbBrandGmail } from "react-icons/tb";
 
 export default function Kontak() {
   const [nama, setNama] = useState("");
@@ -30,7 +30,7 @@ export default function Kontak() {
       alert("Silakan pilih subjek terlebih dahulu.");
       return;
     }
-    
+
     const body = `Nama: ${nama}%0D%0AEmail: ${email}%0D%0A%0D%0APesan:%0D%0A${pesan}`;
     window.location.href = `mailto:sales.bestq@gmail.com?subject=${encodeURIComponent(subjek)}&body=${body}`;
   };
@@ -68,12 +68,11 @@ export default function Kontak() {
           <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row overflow-hidden">
 
             {/* Left Column: Contact Info */}
-            <div className="p-8 md:p-12 md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="p-8 md:p-10 md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-gray-200">
               <h2 className="text-2xl font-bold text-[#004AAD] mb-4">Head Office</h2>
-              <h3 className="font-semibold text-gray-600 mb-2">PT Best Sinergi Indonesia</h3>
+              <h3 className="font-semibold text-gray-600 mb-2">PT BestQ Sinergi Indonesia</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-6 text-justify">
-                Jl. Raya Kebon Jeruk No. 27<br />
-                Jakarta Barat, 11530<br />
+                Jakarta Timur, 13440<br />
                 DKI Jakarta, Indonesia
               </p>
 
@@ -81,25 +80,25 @@ export default function Kontak() {
 
               <div className="flex flex-col gap-5 mb-10">
                 <div className="flex items-center gap-4">
-                  <FaPhoneAlt className="w-5 h-5 text-[#004AAD] shrink-0" />
+                  <FaWhatsapp className="w-6 h-6 text-[#004AAD] shrink-0" />
                   <span className="text-sm font-medium text-gray-700">+62 813-1748-5351</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <BiLogoGmail className="w-5 h-5 text-[#004AAD] shrink-0" />
+                  <TbBrandGmail className="w-6 h-6 text-[#004AAD] shrink-0" />
                   <span className="text-sm font-medium text-gray-700">sales.bestq@gmail.com</span>
                 </div>
               </div>
 
               {/* Social Icons */}
               <div className="flex items-center gap-4">
-                <a href="#" aria-label="Instagram" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
+                <a href="https://www.instagram.com/bestqmedical.official/" aria-label="Instagram" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
                   <BsInstagram className="w-5 h-5" />
                 </a>
-                <a href="#" aria-label="Facebook" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
-                  <FaFacebookSquare className="w-5 h-5" />
+                <a href="https://www.tiktok.com/@bestqmed.official?is_from_webapp=1&sender_device=pc" aria-label="Tiktok" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
+                  <PiTiktokLogo className="w-6 h-6" />
                 </a>
-                <a href="#" aria-label="Youtube" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
-                  <FaYoutube className="w-5 h-5 -ml-1" />
+                <a href="https://www.youtube.com/@bestqsinergiindonesia8702" aria-label="Youtube" className="text-[#004AAD] hover:text-[#18538f] transition-colors">
+                  <PiYoutubeLogo className="w-7 h-7 -ml-1" />
                 </a>
               </div>
             </div>

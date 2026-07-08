@@ -35,13 +35,6 @@ export const partners = [
     url: "https://rsud.tangerangkota.go.id/"
   },
   {
-    name: "REVASS",
-    logo: "/partners/revass.png",
-    width: 220,
-    height: 120,
-    url: "https://revassutamamedika.com/"
-  },
-  {
     name: "Anara Medical",
     logo: "/partners/anara-medical.png",
     width: 220,

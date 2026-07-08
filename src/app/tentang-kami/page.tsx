@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { PiHandHeart, PiHandsPraying, PiUsersFour} from "react-icons/pi";
 import { GiScales, GiTargetArrows } from "react-icons/gi";
-import { TbRibbonHealth } from "react-icons/tb";
 import { BsLeaf } from "react-icons/bs";
+import { RiUserStarLine } from "react-icons/ri";
 
 
 
@@ -36,39 +36,43 @@ export default function TentangKami() {
             </span>
 
             <h1 className="mt-5 text-4xl md:text-5xl font-bold text-gray-900">
-              PT BestQ Sinergi Indonesia
+              BestQ Groups
             </h1>
 
             <div className="w-24 h-1 bg-bestq-blue mx-auto mt-6 rounded-full"></div>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-1 text-gray-600 leading-8 text-justify text-base">
-            <p className="indent-12 text-lg">
-              <b>PT BestQ Sinergi Indonesia</b> adalah perusahaan yang bergerak di bidang
-              produksi dan distribusi alat kesehatan yang telah memperoleh izin resmi
-              dari Direktur Jenderal Bina Kefarmasian dan Alat Kesehatan,
-              Kementerian Kesehatan Republik Indonesia.
-            </p>
-            <p className="indent-12 text-lg">
-              Alat kesehatan yang kami distribusikan meliputi alat kesehatan
-              <b> non-steril non-elektromedis</b> dan <b>alat kesehatan non-elektromedis steril</b>.
-              <b> BestQ Medical</b> berfokus pada pendistribusian alat-alat kesehatan serta
-              peralatan bedah. Hal ini menjadikan <b>BestQ Medical</b> memiliki bisnis inti di
-              bidang produk peralatan kamar operasi atau pakaian bedah.
-            </p>
-            <p className="indent-12 text-lg">
-              Dengan tim profesional yang kompeten dalam produksi alat kesehatan,
-              didukung manajemen yang berpengalaman serta tenaga penjualan yang ahli
-              di bidangnya, kami berkomitmen memberikan pelayanan terbaik kepada
-              seluruh mitra bisnis kami.
-            </p>
-            <p className="indent-12 text-lg">
-              <b>BestQ Medical</b> juga memiliki jaringan distribusi yang luas dengan dukungan rantai
-              pasok yang andal. Hal ini memungkinkan kami membangun sistem distribusi
-              yang profesional, efisien, dan memberikan nilai tambah bagi seluruh
-              mitra kami.
-            </p>
-          </div>
+  <p className="indent-12 text-lg">
+    <b>BestQ Groups</b> adalah perusahaan yang bergerak di bidang produksi
+    dan distribusi alat kesehatan yang telah memperoleh izin resmi dari
+    Direktur Jenderal Bina Kefarmasian dan Alat Kesehatan, Kementerian
+    Kesehatan Republik Indonesia.
+  </p>
+
+  <p className="indent-12 text-lg">
+    Alat kesehatan yang kami distribusikan meliputi
+    <b> alat kesehatan non-steril non-elektromedis</b> dan
+    <b> alat kesehatan non-elektromedis steril</b>.
+    <b> BestQ Groups</b> berfokus pada pendistribusian alat-alat kesehatan
+    serta peralatan bedah. Hal ini menjadikan <b>BestQ Groups</b> memiliki
+    bisnis inti di bidang produk peralatan kamar operasi dan pakaian bedah.
+  </p>
+
+  <p className="indent-12 text-lg">
+    Dengan tim profesional yang kompeten dalam produksi alat kesehatan,
+    didukung oleh manajemen yang berpengalaman serta tenaga penjualan yang
+    ahli di bidangnya, kami berkomitmen untuk memberikan pelayanan terbaik
+    kepada seluruh mitra bisnis kami.
+  </p>
+
+  <p className="indent-12 text-lg">
+    <b>BestQ Groups</b> juga memiliki jaringan distribusi yang luas dengan
+    dukungan rantai pasok yang andal. Hal ini memungkinkan kami membangun
+    sistem distribusi yang profesional, efisien, dan memberikan nilai tambah
+    bagi seluruh mitra bisnis kami.
+  </p>
+</div>
         </div>
       </section>
 
@@ -203,11 +207,11 @@ export default function TentangKami() {
 
                 <div className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:border-bestq-blue hover:shadow-md transition-all">
                   <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-bestq-blue transition-colors">
-                    <TbRibbonHealth className="w-6 h-6 text-bestq-blue group-hover:text-white" />
+                    <RiUserStarLine className="w-6 h-6 text-bestq-blue group-hover:text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Kebaikan</h3>
-                    <p className="text-sm text-gray-500 italic">Kindness</p>
+                    <h3 className="font-semibold text-gray-900">Kejujuran</h3>
+                    <p className="text-sm text-gray-500 italic">Honesty</p>
                   </div>
                 </div>
 

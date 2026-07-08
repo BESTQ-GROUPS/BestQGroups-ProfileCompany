@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BestQLogo from "./BestQLogo";
-import {
-  BriefcaseMedical
-} from "lucide-react";
+import { TbPhoneCall } from "react-icons/tb";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -14,7 +12,6 @@ export default function Navbar() {
     { name: "Tentang Kami", href: "/tentang-kami" },
     { name: "Produk", href: "/produk" },
     { name: "Toko Online", href: "/toko-online" },
-    { name: "Kontak", href: "/kontak" },
   ];
 
   return (
@@ -53,8 +50,8 @@ export default function Navbar() {
 
           <div className="hidden md:block">
             <Link href="/kontak?subject=Request+Sample" className="bg-bestq-blue hover:bg-bestq-darkblue text-white px-6 py-2.5 rounded-md font-medium text-sm transition-colors shadow-sm flex flex-row-reverse items-center gap-2 cursor-pointer">
-              Request Sample
-              <BriefcaseMedical className="w-5 h-5" />
+              Hubungi Kami
+              <TbPhoneCall className="w-5 h-5" />
             </Link>
           </div>
 

@@ -31,7 +31,7 @@ export default function FloatingSampul() {
  const yDesktop = useTransform(
   scrollYProgress,
   [0, 0.85],
-  ["-40%", "87%"]
+  ["-35%", "87%"]
 );
 
 const yMobile = useTransform(

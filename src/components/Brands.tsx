@@ -5,75 +5,59 @@ export default function Brands() {
     {
       name: "Anytime",
       title: "Perawatan Pribadi",
-      logo: (
-        <div className="text-3xl font-serif italic text-[#4B2E83] flex items-center">
-          <Image
-            src="/logo-anytime.png"
-            alt="Anytime"
-            width={650}
-            height={650}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ),
+      logoSrc: "/logo-anytime.png",
       description: "Merek terpercaya untuk produk perawatan pribadi dan keluarga. Anytime hadir memberikan kenyamanan ekstra, keamanan yang teruji, serta perlindungan yang bisa diandalkan dalam aktivitas sehari-hari.",
     },
     {
-      name: "NEOPLAST",
-      title: "Perawatan Luka",
-      logo: (
-        <div className="text-3xl font-sans font-black tracking-widest text-black">
-          <Image
-            src="/logo-neoplast.png"
-            alt="Neoplast"
-            width={1500}
-            height={1500}
-            className="w-full h-full object-contain"
-          />
-        </div>
-      ),
-      description: "Spesialis perlindungan luka yang inovatif. Neoplast menawarkan plester medis dengan bahan elastis, kedap air, dan bersirkulasi udara optimal untuk mempercepat proses penyembuhan.",
-    },
-    {
       name: "BestQ MEDICAL",
-      title: "Medis Profesional",
-      logo: (
-        <div className="flex flex-col items-center">
-          <Image
-            src="/logo-bestqmedical.png"
-            alt="BestQ Medical"
-            width={500}
-            height={500}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ),
+      title: "Bahan Medis Habis Pakai",
+      logoSrc: "/logo-bestqmedical.png",
       description: "Penyedia peralatan medis bersertifikat standar nasional dan internasional. BestQ Medical dirancang khusus untuk memenuhi kebutuhan di lingkungan kesehatan.",
     },
   ];
 
   return (
-    <section className="py-5 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-12 md:py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <div className="text-center mb-12">
-
-          <h3 className="text-5xl font-bold text-gray-900 mt-8 mb-2 text-left">Brand Kami</h3>
-          <p className="text-gray-600 text-left">
+        <div className="mb-12 md:mb-16 flex flex-col items-center md:items-start">
+          <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 text-center md:text-left">
+            Brand Kami
+          </h3>
+          <p className="text-base md:text-lg text-gray-600 text-center md:text-left max-w-3xl">
             Kami menaungi berbagai merek terkemuka yang telah dipercaya untuk memenuhi kebutuhan perawatan kesehatan Anda dengan kualitas terbaik.
           </p>
         </div>
 
         {/* Brand Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {brands.map((brand, index) => (
-            <div key={index} className="flex flex-col rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow bg-white">
-              <div className="h-40 flex items-center justify-center bg-white p-6">
-                {brand.logo}
+            <div
+              key={index}
+              className="group flex flex-col rounded-[22px] overflow-hidden bg-white shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            >
+              {/* Logo Container */}
+              <div className="relative h-48 sm:h-56 md:h-64 flex items-center justify-center p-8 bg-white z-10">
+                <div className="relative w-full h-full max-w-[75%] md:max-w-[70%] transition-transform duration-500 group-hover:scale-105">
+                  <Image
+                    src={brand.logoSrc}
+                    alt={brand.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
               </div>
-              <div className="bg-[#216BB3] p-8 grow">
-                <h4 className="text-white font-bold text-lg mb-3 text-center">{brand.title}</h4>
-                <p className="text-white/80 text-sm leading-relaxed text-justify">
+              
+              {/* Text Container */}
+              <div className="bg-[#f8f9fb] p-8 md:p-10 flex flex-col grow relative">
+                {/* Aksen visual ringan untuk desain premium */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-blue-500 via-gray-200 to-orange-500 opacity-75"></div>
+                
+                <h4 className="text-[#1a202c] font-bold text-xl md:text-2xl mb-4 text-center">
+                  {brand.title}
+                </h4>
+                <p className="text-[#64748b] text-sm md:text-base leading-relaxed text-justify">
                   {brand.description}
                 </p>
               </div>

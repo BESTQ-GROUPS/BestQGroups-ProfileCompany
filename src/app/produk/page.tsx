@@ -38,7 +38,7 @@ export default function ProdukList() {
       {/* Brands Cards */}
       <section className="pb-8 px-4 mt-12">
         <div className="container mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-16">
             {/* Anytime */}
             <div className="bg-[#f8f9fb] rounded-2xl p-8 pt-14 text-center relative transition-transform hover:-translate-y-1 duration-300">
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-[0_8px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 w-20 h-20 flex items-center justify-center p-3">
@@ -56,23 +56,6 @@ export default function ProdukList() {
               </p>
             </div>
 
-            {/* Neoplast */}
-            <div className="bg-[#f8f9fb] rounded-2xl p-8 pt-14 text-center relative transition-transform hover:-translate-y-1 duration-300">
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-[0_8px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 w-20 h-20 flex items-center justify-center p-3">
-                <Image
-                  src="/logo-neoplast.png"
-                  alt="Neoplast"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-none"
-                />
-              </div>
-              <h4 className="font-bold text-[#1a202c] text-lg mb-3">Perawatan Luka</h4>
-              <p className="text-[#64748b] text-sm leading-relaxed text-justify">
-                Perlindungan optimal untuk berbagai jenis luka dengan bahan elastis, kedap air, dan sirkulasi udara yang baik.
-              </p>
-            </div>
-
             {/* BestQ Medical */}
             <div className="bg-[#f8f9fb] rounded-2xl p-8 pt-14 text-center relative transition-transform hover:-translate-y-1 duration-300">
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-[0_8px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 w-20 h-20 flex items-center justify-center p-3">
@@ -84,7 +67,7 @@ export default function ProdukList() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h4 className="font-bold text-[#1a202c] text-lg mb-3">Medis Profesional</h4>
+              <h4 className="font-bold text-[#1a202c] text-lg mb-3">Bahan Medis Habis Pakai</h4>
               <p className="text-[#64748b] text-sm leading-relaxed text-justify">
                 Alat kesehatan bersertifikat untuk kebutuhan klinik dan rumah sakit dengan standar kualitas tinggi.
               </p>
