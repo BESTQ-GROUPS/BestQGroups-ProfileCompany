@@ -10,17 +10,7 @@ type ProductSpecificationInput = z.infer<typeof insertProductSpecificationSchema
 
 export class ProductService {
   static async getProducts(params: GetProductsQuery) {
-    const key = JSON.stringify(params);
-    
-    const getCachedProducts = unstable_cache(
-      async () => {
-        return await ProductRepository.findMany(params);
-      },
-      ['products-list', key],
-      { tags: ['products'], revalidate: 3600 }
-    );
-    
-    return getCachedProducts();
+    return await ProductRepository.findMany(params);
   }
 
   static async getBySlug(slug: string) {
