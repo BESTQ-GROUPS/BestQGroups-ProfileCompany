@@ -14,28 +14,46 @@ export default async function ProdukList(props: { searchParams: Promise<{ [key: 
   const currentBrand = searchParams.brand;
   const currentSort = searchParams.sort as 'newest' | 'oldest';
 
-  const db = getDb();
-  const allCategories = await db.select().from(categoriesSchema);
-  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let allCategories: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let products: any[] = [];
+  let totalPages = 1;
+  let errorMessage = null;
   let categoryId = undefined;
-  if (currentCategory) {
-    const cat = allCategories.find(c => c.slug === currentCategory);
-    if (cat) categoryId = cat.id;
+
+  try {
+    const db = getDb();
+    allCategories = await db.select().from(categoriesSchema);
+    
+    if (currentCategory) {
+      const cat = allCategories.find(c => c.slug === currentCategory);
+      if (cat) categoryId = cat.id as string;
+    }
+
+    const result = await ProductService.getProducts({
+      page: currentPage,
+      limit: 9,
+      status: 'published',
+      sort: currentSort || 'newest',
+      category: categoryId,
+      brand: currentBrand
+    });
+
+    products = result.data;
+    totalPages = result.totalPages;
+  } catch (error: unknown) {
+    errorMessage = error instanceof Error ? error.message : String(error);
   }
-
-  const result = await ProductService.getProducts({
-    page: currentPage,
-    limit: 9,
-    status: 'published',
-    sort: currentSort || 'newest',
-    category: categoryId,
-    brand: currentBrand
-  });
-
-  const { data: products, totalPages } = result;
 
   return (
     <div className="flex flex-col bg-white">
+      {errorMessage && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-4xl mx-auto mt-8" role="alert">
+          <strong className="font-bold">Error Loading Data: </strong>
+          <span className="block sm:inline">{errorMessage}</span>
+        </div>
+      )}
       {/* Hero Banner Image */}
       <div className="relative w-full h-48 md:h-64 bg-bestq-blue overflow-hidden">
         <div className="absolute inset-0 bg-[#216BB3]/60 mix-blend-multiply z-10" />
