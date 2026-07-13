@@ -4,8 +4,9 @@ import { logger } from '@/lib/logger';
 
 export const runtime = 'edge';
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
+export async function GET(request: Request, props: { params: Promise<{ slug: string }> }) {
   try {
+    const params = await props.params;
     const productData = await ProductService.getBySlug(params.slug);
 
     if (!productData) {
