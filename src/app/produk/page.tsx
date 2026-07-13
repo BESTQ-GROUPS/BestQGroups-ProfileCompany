@@ -1,13 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ProductService } from "@/services/product.service";
+import ProductFilterBar from "@/components/ProductFilterBar";
+import { getDb } from "@/db";
+import { categories as categoriesSchema } from "@/db/schema/category";
 
+export const runtime = 'edge';
 
-export default function ProdukList() {
-  const products = Array(6).fill({
-    title: "Alat Medis Berkualitas",
-    description: "Peralatan kesehatan berstandar internasional yang dirancang khusus untuk memberikan keamanan dan keandalan operasional jangka panjang.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop"
+export default async function ProdukList(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
+  const searchParams = await props.searchParams;
+  const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
+  const currentCategory = searchParams.category;
+  const currentBrand = searchParams.brand;
+  const currentSort = searchParams.sort as 'newest' | 'oldest';
+
+  const db = getDb();
+  const allCategories = await db.select().from(categoriesSchema);
+  
+  let categoryId = undefined;
+  if (currentCategory) {
+    const cat = allCategories.find(c => c.slug === currentCategory);
+    if (cat) categoryId = cat.id;
+  }
+
+  const result = await ProductService.getProducts({
+    page: currentPage,
+    limit: 9,
+    status: 'published',
+    sort: currentSort || 'newest',
+    category: categoryId,
+    brand: currentBrand
   });
+
+  const { data: products, totalPages } = result;
 
   return (
     <div className="flex flex-col bg-white">
@@ -80,90 +105,88 @@ export default function ProdukList() {
       <section className="py-8 px-4 mb-16">
         <div className="container mx-auto max-w-6xl">
 
-          {/* Filter Bar */}
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-            <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
-              <button className="whitespace-nowrap px-6 py-2 bg-white border border-gray-200 text-gray-800 text-sm font-semibold rounded shadow-sm">
-                Lihat Semua
-              </button>
-              <button className="whitespace-nowrap px-6 py-2 bg-gray-100 text-gray-600 text-sm font-medium rounded hover:bg-gray-200 transition-colors">
-                Non-Elektromedis Steril
-              </button>
-              <button className="whitespace-nowrap px-6 py-2 bg-gray-100 text-gray-600 text-sm font-medium rounded hover:bg-gray-200 transition-colors">
-                Non-Elektromedis Non-Steril
-              </button>
-            </div>
-
-            <div className="w-full md:w-auto">
-              <select className="w-full md:w-48 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded outline-none cursor-pointer">
-                <option>Brand</option>
-                <option>Anytime</option>
-                <option>Neoplast</option>
-                <option>BestQ Medical</option>
-              </select>
-            </div>
-          </div>
+          <ProductFilterBar 
+            categories={allCategories}
+            currentCategory={currentCategory}
+            currentBrand={currentBrand}
+            currentSort={currentSort}
+          />
 
           {/* Product Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
-              <div key={index} className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
-                <div className="h-56 overflow-hidden relative bg-gray-50">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6 flex flex-col grow">
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-bold text-lg text-gray-900">{product.title}</h3>
-                    <button className="text-gray-400 hover:text-bestq-blue transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-6 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div className="mt-auto">
-                    <Link href="/produk/1" className="inline-block border border-bestq-blue text-bestq-blue px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-bestq-blue hover:text-white transition-colors">
-                      Lihat Detail
-                    </Link>
-                  </div>
-                </div>
+            {products.length === 0 && (
+              <div className="col-span-3 py-12 text-center text-gray-500">
+                Belum ada produk yang tersedia.
               </div>
-            ))}
+            )}
+            {products.map((product) => {
+              const mainImage = product.images && product.images.length > 0
+                ? product.images[0].url
+                : "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop";
+
+              return (
+                <div key={product.id} className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+                  <div className="h-56 overflow-hidden relative bg-gray-50">
+                    <Image
+                      src={mainImage}
+                      alt={product.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col grow">
+                    <div className="flex justify-between items-center mb-3">
+                      <h3 className="font-bold text-lg text-gray-900">{product.title}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-6 line-clamp-3 text-justify leading-relaxed">
+                      {product.description || "Deskripsi belum tersedia."}
+                    </p>
+                    <div className="mt-auto">
+                      <Link href={`/produk/${product.slug}`} className="inline-block border border-bestq-blue text-bestq-blue px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-bestq-blue hover:text-white transition-colors">
+                        Lihat Detail
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between border-t border-gray-200 mt-12 pt-6">
-            <button className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-gray-700 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-              </svg>
-              Sebelumnya
-            </button>
-            <div className="hidden md:flex items-center gap-2 text-sm">
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-bold text-gray-900">1</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-colors">2</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-colors">3</button>
-              <span className="text-gray-400 px-1">...</span>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-colors">8</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-colors">9</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full font-medium text-gray-500 hover:bg-gray-100 transition-colors">10</button>
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between border-t border-gray-200 mt-12 pt-6">
+              <Link
+                href={`/produk?${new URLSearchParams({...searchParams, page: String(Math.max(1, currentPage - 1))}).toString()}`}
+                className={`flex items-center gap-2 text-sm font-medium ${currentPage === 1 ? 'text-gray-300 pointer-events-none' : 'text-gray-500 hover:text-gray-900 transition-colors'}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                </svg>
+                Sebelumnya
+              </Link>
+              <div className="hidden md:flex items-center gap-2 text-sm">
+                {Array.from({ length: totalPages }).map((_, idx) => (
+                  <Link
+                    key={idx}
+                    href={`/produk?${new URLSearchParams({...searchParams, page: String(idx + 1)}).toString()}`}
+                    className={`w-8 h-8 flex items-center justify-center rounded-full font-medium transition-colors ${currentPage === idx + 1 ? 'font-bold text-bestq-blue bg-blue-100' : 'text-bestq-orange hover:bg-gray-100'}`}
+                  >
+                    {idx + 1}
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href={`/produk?${new URLSearchParams({...searchParams, page: String(Math.min(totalPages, currentPage + 1))}).toString()}`}
+                className={`flex items-center gap-2 text-sm font-medium ${currentPage === totalPages ? 'text-gray-300 pointer-events-none' : 'text-gray-500 hover:text-gray-900 transition-colors'}`}
+              >
+                Selanjutnya
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+              </Link>
             </div>
-            <button className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
-              Selanjutnya
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-              </svg>
-            </button>
-          </div>
-
+          )}
         </div>
       </section>
     </div>

@@ -110,6 +110,7 @@ export default function RootLayout({
       className={cn(inter.variable, jetbrainsMono.variable, ubuntu.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
       <body
+        suppressHydrationWarning
         className="
           bg-canvas
           text-ink
