@@ -6,8 +6,7 @@ import ProductTabs from '@/components/ProductTabs';
 
 export const runtime = 'edge';
 
-export default async function DetailProduk(props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params;
+export default async function DetailProduk({ params }: { params: { slug: string } }) {
   
   const productData = await ProductService.getBySlug(params.slug);
 

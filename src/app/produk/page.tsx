@@ -7,8 +7,7 @@ import { categories as categoriesSchema } from "@/db/schema/category";
 
 export const runtime = 'edge';
 
-export default async function ProdukList(props: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
-  const searchParams = await props.searchParams;
+export default async function ProdukList({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
   const currentCategory = searchParams.category;
   const currentBrand = searchParams.brand;
