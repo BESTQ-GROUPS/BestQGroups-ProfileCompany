@@ -1,6 +1,6 @@
 name = "profilweb-bestq-groups"
+pages_build_output_dir = ".vercel/output/static"
 compatibility_date = "2024-03-20"
-account_id = "f8443625e4d94f28ebba9d1544c6865f"
 [[d1_databases]]
 binding = "DB"
 database_name = "bestq-db"
