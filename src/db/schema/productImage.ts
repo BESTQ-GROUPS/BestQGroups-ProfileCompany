@@ -11,5 +11,5 @@ export const productImages = sqliteTable("product_images", {
   height: integer("height"),
   isPrimary: integer("is_primary", { mode: "boolean" }).default(false),
   sortOrder: integer("sort_order").default(0),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
 });

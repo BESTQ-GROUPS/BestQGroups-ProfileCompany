@@ -72,7 +72,35 @@ export default function ProductFilterBar({ categories, currentCategory, currentB
             Lihat Semua
           </button>
 
-          {categories.map((cat) => (
+          <button
+            onClick={() =>
+              router.push(`?${createQueryString("category", "non-elektromedis-steril")}`)
+            }
+            className={cn(
+              "rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200",
+              currentCategory === "non-elektromedis-steril"
+                ? "border-bestq-blue bg-bestq-blue text-white shadow-md"
+                : "border-gray-200 bg-gray-50 text-gray-700 hover:border-bestq-blue hover:bg-blue-50 hover:text-bestq-blue cursor-pointer"
+            )}
+          >
+            Non-Elektromedis Steril
+          </button>
+
+          <button
+            onClick={() =>
+              router.push(`?${createQueryString("category", "non-elektromedis-non-steril")}`)
+            }
+            className={cn(
+              "rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-200",
+              currentCategory === "non-elektromedis-non-steril"
+                ? "border-bestq-blue bg-bestq-blue text-white shadow-md"
+                : "border-gray-200 bg-gray-50 text-gray-700 hover:border-bestq-blue hover:bg-blue-50 hover:text-bestq-blue cursor-pointer"
+            )}
+          >
+            Non-Elektromedis Non-Steril
+          </button>
+
+          {categories.filter(c => c.slug !== "non-elektromedis-steril" && c.slug !== "non-elektromedis-non-steril").map((cat) => (
             <button
               key={cat.id}
               onClick={() =>

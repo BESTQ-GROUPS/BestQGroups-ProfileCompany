@@ -8,7 +8,7 @@ export const reviews = sqliteTable("product_reviews", {
   userName: text("user_name").notNull(),
   rating: integer("rating").notNull(), // 1 to 5
   comment: text("comment"),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).$defaultFn(() => new Date()),
 }, (table) => [
   index("review_product_id_idx").on(table.productId),
 ]);
