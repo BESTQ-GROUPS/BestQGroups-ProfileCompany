@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Hero from "../components/Hero";
 import Features from "../components/Features";
 import FloatingSampul from "../components/FloatingSampul";
