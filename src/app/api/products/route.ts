@@ -4,7 +4,7 @@ import { getProductsQuerySchema } from '@/lib/validators';
 import { apiResponse } from '@/lib/api-response';
 import { logger } from '@/lib/logger';
 
-export const runtime = 'edge';
+
 
 export async function GET(request: Request) {
   try {

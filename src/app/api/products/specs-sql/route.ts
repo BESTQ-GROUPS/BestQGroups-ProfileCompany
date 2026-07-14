@@ -4,7 +4,7 @@ import { products } from '@/db/schema/product';
 import fs from 'fs';
 import path from 'path';
 
-export const runtime = 'edge';
+
 
 function generateId() {
   return crypto.randomUUID();

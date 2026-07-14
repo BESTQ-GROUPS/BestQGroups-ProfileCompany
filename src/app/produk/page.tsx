@@ -5,14 +5,12 @@ import ProductFilterBar from "@/components/ProductFilterBar";
 import { getDb } from "@/db";
 import { categories as categoriesSchema } from "@/db/schema/category";
 
-export const runtime = 'edge';
-
-export default async function ProdukList({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
-  try {
-    const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
-    const currentCategory = searchParams.category;
-    const currentBrand = searchParams.brand;
-    const currentSort = searchParams.sort as 'newest' | 'oldest';
+export default async function ProdukList({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
+    const resolvedSearchParams = await searchParams;
+    const currentPage = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page) : 1;
+    const currentCategory = resolvedSearchParams.category;
+    const currentBrand = resolvedSearchParams.brand;
+    const currentSort = resolvedSearchParams.sort as 'newest' | 'oldest';
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let allCategories: any[] = [];
@@ -175,7 +173,7 @@ export default async function ProdukList({ searchParams }: { searchParams: { [ke
             {totalPages > 1 && (
               <div className="flex items-center justify-between border-t border-gray-200 mt-12 pt-6">
                 <Link
-                  href={`/produk?${new URLSearchParams({...searchParams, page: String(Math.max(1, currentPage - 1))}).toString()}`}
+                  href={`/produk?${new URLSearchParams({...resolvedSearchParams, page: String(Math.max(1, currentPage - 1))}).toString()}`}
                   className={`flex items-center gap-2 text-sm font-medium ${currentPage === 1 ? 'text-gray-300 pointer-events-none' : 'text-gray-500 hover:text-gray-900 transition-colors'}`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
@@ -187,7 +185,7 @@ export default async function ProdukList({ searchParams }: { searchParams: { [ke
                   {Array.from({ length: totalPages }).map((_, idx) => (
                     <Link
                       key={idx}
-                      href={`/produk?${new URLSearchParams({...searchParams, page: String(idx + 1)}).toString()}`}
+                      href={`/produk?${new URLSearchParams({...resolvedSearchParams, page: String(idx + 1)}).toString()}`}
                       className={`w-8 h-8 flex items-center justify-center rounded-full font-medium transition-colors ${currentPage === idx + 1 ? 'font-bold text-bestq-blue bg-blue-100' : 'text-bestq-orange hover:bg-gray-100'}`}
                     >
                       {idx + 1}
@@ -195,7 +193,7 @@ export default async function ProdukList({ searchParams }: { searchParams: { [ke
                   ))}
                 </div>
                 <Link
-                  href={`/produk?${new URLSearchParams({...searchParams, page: String(Math.min(totalPages, currentPage + 1))}).toString()}`}
+                  href={`/produk?${new URLSearchParams({...resolvedSearchParams, page: String(Math.min(totalPages, currentPage + 1))}).toString()}`}
                   className={`flex items-center gap-2 text-sm font-medium ${currentPage === totalPages ? 'text-gray-300 pointer-events-none' : 'text-gray-500 hover:text-gray-900 transition-colors'}`}
                 >
                   Selanjutnya
@@ -209,13 +207,4 @@ export default async function ProdukList({ searchParams }: { searchParams: { [ke
         </section>
       </div>
     );
-  } catch(fatalError: any) {
-    return (
-      <div className="bg-red-500 text-white p-8">
-        <h1>FATAL EDGE RUNTIME ERROR</h1>
-        <pre>{fatalError.message || String(fatalError)}</pre>
-        <pre>{fatalError.stack}</pre>
-      </div>
-    )
-  }
 }

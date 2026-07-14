@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { seedDatabase } from '@/db/seed';
 
-export const runtime = 'edge';
+
 
 export async function GET() {
   if (process.env.NODE_ENV !== 'development') {

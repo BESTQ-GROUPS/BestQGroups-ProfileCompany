@@ -2,7 +2,7 @@ import { CategoryService } from '@/services/category.service';
 import { apiResponse } from '@/lib/api-response';
 import { logger } from '@/lib/logger';
 
-export const runtime = 'edge';
+
 
 export async function GET() {
   try {

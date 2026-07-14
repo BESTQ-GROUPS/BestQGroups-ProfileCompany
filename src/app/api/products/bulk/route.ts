@@ -2,7 +2,7 @@ import { apiResponse } from '@/lib/api-response';
 import { getDb } from '@/db';
 import { products } from '@/db/schema/product';
 
-export const runtime = 'edge';
+
 
 export async function POST(req: Request) {
   try {

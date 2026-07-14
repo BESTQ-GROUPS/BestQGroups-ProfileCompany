@@ -35,7 +35,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
   return (
     <div className="flex flex-col">
       {/* Tabs */}
-      <div className="flex items-center gap-8 border-b border-gray-200 mb-6">
+      <div className="flex items-center gap-8 mb-4">
         <button
           onClick={() => setActiveTab("deskripsi")}
           className={cn(
@@ -81,6 +81,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
           Ulasan
         </button>
       </div>
+      <div className="border-b border-bestq-blue/40"></div>
 
       {/* Tab Content */}
       <div className="min-h-50 mb-10">
@@ -157,7 +158,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
                         ))}
                       </div>
                     </div>
-                    {review.comment && <p className="text-gray-600 text-sm mt-1">{review.comment}</p>}
+                    {review.comment && <p className="text-gray-600 text-sm mt-1 text-justify">{review.comment}</p>}
                   </div>
                 ))}
               </div>
@@ -169,6 +170,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
           </div>
         )}
       </div>
+      <div className="border-b border-bestq-blue/40 mb-4"></div>
     </div>
   );
 }
