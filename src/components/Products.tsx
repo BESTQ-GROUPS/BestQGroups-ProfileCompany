@@ -3,14 +3,19 @@ import Link from "next/link";
 import { ProductService } from "@/services/product.service";
 
 export default async function Products() {
-  const result = await ProductService.getProducts({
-    page: 1,
-    limit: 3,
-    status: 'published',
-    sort: 'newest'
-  });
-  
-  const products = result.data;
+  let products: any[] = [];
+  let errorMsg = null;
+  try {
+    const result = await ProductService.getProducts({
+      page: 1,
+      limit: 3,
+      status: 'published',
+      sort: 'newest'
+    });
+    products = result.data;
+  } catch (error: any) {
+    errorMsg = error.message || String(error);
+  }
 
   return (
     <section className="py-16 bg-white relative">
@@ -19,6 +24,12 @@ export default async function Products() {
           <h2 className="text-5xl font-bold text-gray-900 mb-2 text-left">Produk Kami</h2>
           <p className="text-gray-600 text-left">Temukan berbagai ragam peralatan medis berkualitas tinggi yang kami sediakan untuk melengkapi fasilitas kesehatan Anda.</p>
         </div>
+
+        {errorMsg && (
+          <div className="bg-red-100 text-red-700 p-4 rounded-lg mb-8">
+            <strong>Error Loading Products:</strong> {errorMsg}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product) => {

@@ -1,11 +1,15 @@
-import { drizzle } from 'drizzle-orm/d1';
-import { getCloudflareContext } from '@opennextjs/cloudflare';
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
 import * as schema from './schema';
 
 export async function getDb() {
-  const { env } = await getCloudflareContext({ async: true }) as any;
-  if (!env || !env.DB) {
-    throw new Error("Cloudflare D1 binding 'DB' not found. Ensure setupDevPlatform is running or wrangler is configured.");
+  const url = process.env.TURSO_DATABASE_URL;
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+
+  if (!url || !authToken) {
+    throw new Error("Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN environment variables.");
   }
-  return drizzle(env.DB, { schema });
+
+  const client = createClient({ url, authToken });
+  return drizzle(client, { schema });
 }
