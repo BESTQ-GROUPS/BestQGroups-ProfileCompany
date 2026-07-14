@@ -11,7 +11,7 @@ type ProductSpecificationInput = z.infer<typeof insertProductSpecificationSchema
 
 export class ProductRepository {
   static async findMany(params: GetProductsQuery) {
-    const db = getDb();
+    const db = await getDb();
     
     const conditions = [isNull(products.deletedAt)];
     
@@ -64,7 +64,7 @@ export class ProductRepository {
   }
   
   static async findBySlug(slug: string) {
-    const db = getDb();
+    const db = await getDb();
     return db.query.products.findFirst({
       where: and(eq(products.slug, slug), isNull(products.deletedAt)),
       with: {
@@ -86,7 +86,7 @@ export class ProductRepository {
   }
 
   static async createWithRelations(productData: ProductInput, imagesData: ProductImageInput[], specsData: ProductSpecificationInput[]) {
-    const db = getDb();
+    const db = await getDb();
     const { products } = await import('@/db/schema/product');
     const { productImages } = await import('@/db/schema/productImage');
     const { productSpecifications } = await import('@/db/schema/specification');

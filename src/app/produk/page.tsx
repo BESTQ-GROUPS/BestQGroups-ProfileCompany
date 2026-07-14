@@ -21,7 +21,7 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
     let categoryId = undefined;
 
     try {
-      const db = getDb();
+      const db = await getDb();
       allCategories = await db.select().from(categoriesSchema);
       
       if (currentCategory) {

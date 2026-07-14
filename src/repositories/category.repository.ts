@@ -4,7 +4,7 @@ import { isNull, eq } from 'drizzle-orm';
 
 export class CategoryRepository {
   static async findAll() {
-    const db = getDb();
+    const db = await getDb();
     return db.query.categories.findMany({
       where: isNull(categories.deletedAt),
       with: {
@@ -14,7 +14,7 @@ export class CategoryRepository {
   }
 
   static async findById(id: string) {
-    const db = getDb();
+    const db = await getDb();
     return db.query.categories.findFirst({
       where: eq(categories.id, id)
     });

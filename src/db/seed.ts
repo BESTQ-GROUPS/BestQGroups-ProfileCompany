@@ -6,7 +6,7 @@ import { productSpecifications } from '@/db/schema/specification';
 import { logger } from '@/lib/logger';
 
 export async function seedDatabase() {
-  const db = getDb();
+  const db = await getDb();
 
   try {
     // 1. Seed Category

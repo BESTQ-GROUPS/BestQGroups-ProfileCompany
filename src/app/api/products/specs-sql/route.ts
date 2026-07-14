@@ -37,7 +37,7 @@ function extractSpecs(description: string | null) {
 
 export async function GET() {
   try {
-    const db = getDb();
+    const db = await getDb();
     const allProducts = await db.select().from(products);
     
     let sqlContent = '';

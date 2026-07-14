@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       return apiResponse({ success: false, message: 'Invalid data format, expected array', status: 400 });
     }
 
-    const db = getDb();
+    const db = await getDb();
     const batchSize = 50;
     let insertedCount = 0;
 
