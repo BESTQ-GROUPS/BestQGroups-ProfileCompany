@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { MdOutlineRefresh } from "react-icons/md";
+
 
 interface Category {
   id: string;
@@ -18,7 +20,7 @@ interface ProductFilterBarProps {
   currentSort?: string;
 }
 
-export default function ProductFilterBar({ categories, currentCategory, currentBrand, currentSort }: ProductFilterBarProps) {
+export default function ProductFilterBar({ currentCategory, currentBrand, currentSort }: ProductFilterBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,15 +42,23 @@ export default function ProductFilterBar({ categories, currentCategory, currentB
   return (
     <div className="mb-8 w-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-5">
         <div>
           <h2 className="text-xl font-semibold text-gray-900">
             Filter Produk
           </h2>
-          <p className="text-sm text-gray-500">
-            Temukan produk sesuai kategori, brand, dan urutan yang Anda inginkan.
+          <p className="mt-1 text-sm text-gray-500">
+            Sesuaikan pencarian produk berdasarkan kategori, merek, dan urutan tampilan.
           </p>
         </div>
+
+        <button
+          onClick={() => router.push("?")}
+          className="group inline-flex items-center gap-2 rounded-lg border border-bestq-orange bg-bestq-orange px-4 py-2 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:border-bestq-blue hover:bg-bestq-blue hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+        >
+          <MdOutlineRefresh className="h-5 w-5 transition-transform duration-200 group-hover:rotate-180 cursor-pointer" />
+          <span>Reset Filter</span>
+        </button>
       </div>
 
       {/* Category */}
@@ -103,7 +113,7 @@ export default function ProductFilterBar({ categories, currentCategory, currentB
       </div>
 
       {/* Divider */}
-      <div className="my-6 border-t border-gray-100" />
+      <div className="my-6 border-t border-gray-200" />
 
       {/* Filter */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

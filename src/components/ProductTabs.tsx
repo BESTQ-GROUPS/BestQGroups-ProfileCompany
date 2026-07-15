@@ -100,7 +100,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
                   {specifications.map((spec, index) => (
                     <tr key={index} className="border-b border-gray-200">
                       <td className="py-3 px-4 bg-gray-50 font-medium text-gray-600 w-1/3">{spec.label}</td>
-                      <td className="py-3 px-4 text-gray-800">{spec.value}</td>
+                      <td className="py-3 px-4 text-gray-800 text-justify">{spec.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -115,7 +115,7 @@ export default function ProductTabs({ description, specifications, usageInstruct
           <div className="animate-in fade-in duration-300">
             <h3 className="text-lg font-semibold text-gray-900 mb-4"></h3>
             {usageInstructions && usageInstructions.length > 0 ? (
-              <div className="text-gray-700 text-sm md:text-base leading-relaxed bg-gray-50 p-6 rounded-lg border border-gray-100">
+              <div className="text-gray-700 text-sm md:text-base leading-relaxed text-justify bg-gray-50 p-6 rounded-lg border border-gray-100">
                 <ul className="list-decimal pl-5 space-y-2">
                   {usageInstructions.map(instruction => (
                     <li key={instruction.id}>

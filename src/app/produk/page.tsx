@@ -78,8 +78,8 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
 
         {/* Brands Cards */}
         <section className="pb-8 px-4 mt-12">
-          <div className="container mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-16">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-50 gap-y-16">
               {/* Anytime */}
               <div className="bg-[#f8f9fb] rounded-2xl p-8 pt-14 text-center relative transition-transform hover:-translate-y-1 duration-300">
                 <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-[0_8px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 w-20 h-20 flex items-center justify-center p-3">
@@ -152,15 +152,32 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
                       />
                     </div>
                     <div className="p-6 flex flex-col grow">
-                      <div className="flex justify-between items-center mb-3">
-                        <h3 className="font-bold text-lg text-gray-900">{product.title}</h3>
+                      <div className="flex justify-center items-center mb-3 text-center">
+                        <h3 className="font-bold text-lg text-bestq-blue">{product.title}</h3>
                       </div>
                       <p className="text-sm text-gray-600 mb-6 line-clamp-3 text-justify leading-relaxed">
                         {product.description || "Deskripsi belum tersedia."}
                       </p>
-                      <div className="mt-auto">
-                        <Link href={`/produk/${product.slug}`} className="inline-block border border-bestq-blue text-bestq-blue px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-bestq-blue hover:text-white transition-colors">
+                      <div className="mt-auto flex justify-end">
+                        <Link
+                          href={`/produk/${product.slug}`}
+                          className="inline-flex items-center gap-2 rounded-lg bg-bestq-orange px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-bestq-blue hover:shadow-md"
+                        >
                           Lihat Detail
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2}
+                            stroke="currentColor"
+                            className="h-4 w-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                            />
+                          </svg>
                         </Link>
                       </div>
                     </div>
