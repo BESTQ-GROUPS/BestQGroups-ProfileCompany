@@ -142,13 +142,13 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
 
                 return (
                   <div key={product.id} className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
-                    <div className="h-56 overflow-hidden relative bg-gray-50">
+                    <div className="h-56 overflow-hidden relative bg-white border-b border-gray-100">
                       <Image
                         src={mainImage}
                         alt={product.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-6 flex flex-col grow">

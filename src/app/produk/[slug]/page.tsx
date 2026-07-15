@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ProductService } from '@/services/product.service';
 import { notFound } from 'next/navigation';
 import ProductTabs from '@/components/ProductTabs';
+import ProductGallery from '@/components/ProductGallery';
 import { Tag } from "lucide-react";
 
 
@@ -58,29 +59,11 @@ export default async function DetailProduk({ params }: { params: Promise<{ slug:
 
         <div className="flex flex-col md:flex-row gap-12 lg:gap-20 mb-20">
 
-          {/* Left: Images Gallery */}
-          <div className="w-full md:w-1/2 flex flex-col gap-4">
-            <div className="relative w-full aspect-4/3 bg-gray-50 rounded-xl overflow-hidden border border-gray-100">
-              <Image
-                src={mainImage}
-                alt={productData.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {displayThumbnails.map((itemUrl, index) => (
-                <div key={index} className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-100 cursor-pointer hover:border-bestq-blue transition-colors">
-                  <Image
-                    src={itemUrl}
-                    alt={`Thumbnail ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProductGallery 
+            mainImage={mainImage} 
+            thumbnails={displayThumbnails} 
+            productTitle={productData.title} 
+          />
 
           {/* Right: Product Details */}
           <div className="w-full md:w-1/2 flex flex-col">

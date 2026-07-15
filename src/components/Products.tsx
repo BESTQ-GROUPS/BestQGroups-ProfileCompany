@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ProductService } from "@/services/product.service";
 
 export default async function Products() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let products: any[] = [];
   let errorMsg = null;
   try {
@@ -13,8 +14,8 @@ export default async function Products() {
       sort: 'newest'
     });
     products = result.data;
-  } catch (error: any) {
-    errorMsg = error.message || String(error);
+  } catch (error: unknown) {
+    errorMsg = error instanceof Error ? error.message : String(error);
   }
 
   return (
@@ -39,13 +40,13 @@ export default async function Products() {
 
             return (
               <div key={product.id} className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
-                <div className="h-48 overflow-hidden relative">
+                <div className="h-48 overflow-hidden relative bg-white border-b border-gray-100">
                   <Image 
                     src={mainImage} 
                     alt={product.title} 
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-6 flex flex-col grow">
