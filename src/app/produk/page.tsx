@@ -11,6 +11,7 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
     const currentCategory = resolvedSearchParams.category;
     const currentBrand = resolvedSearchParams.brand;
     const currentSort = resolvedSearchParams.sort as 'newest' | 'oldest';
+    const currentQuery = resolvedSearchParams.q;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let allCategories: any[] = [];
@@ -35,7 +36,8 @@ export default async function ProdukList({ searchParams }: { searchParams: Promi
         status: 'published',
         sort: currentSort || 'newest',
         category: categoryId,
-        brand: currentBrand
+        brand: currentBrand,
+        q: currentQuery
       });
 
       products = result.data;
