@@ -94,6 +94,7 @@ import { cn } from "../lib/utils";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Analytics } from '@vercel/analytics/next';
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -151,6 +152,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
